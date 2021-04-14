@@ -6,7 +6,10 @@ import Dashboard from "./components/Dashboard";
 function App() {
   return (
     <Router>
-      <Login path="/" />
+      <Login
+        //@ts-ignore
+        path="/"
+      />
       <Dashboard path="dashboard" />
     </Router>
   );
