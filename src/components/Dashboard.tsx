@@ -2,6 +2,7 @@ import React from "react";
 import { Segment } from "../api";
 import { useAuthenticate } from "src/hooks/useAuthenticate";
 import { useSegments } from "src/hooks/useSegments";
+import { Stats } from "./Stats";
 const queryString = require("query-string");
 
 const Dashboard = (props: any) => {
@@ -14,20 +15,14 @@ const Dashboard = (props: any) => {
   }
   console.log(storedCode);
   const { segmentError, segmentData } = useSegments(storedCode);
-
+  const segmentDataArray = segmentData?.map((segment: Segment) => ({
+    title: segment.name,
+    dataOne: segment.start_latlng[0],
+    dataTwo: segment.start_latlng[1],
+  }));
   return (
     <div>
-      <p>Hello friend</p>
-      <ul>
-        {segmentData &&
-          segmentData.map((segment: Segment) => (
-            <div key={segment.id}>
-              <p>Name: {segment.name}</p>
-              <p>Start Lat: {segment.start_latlng[0]}</p>
-              <p>Start Long: {segment.start_latlng[1]}</p>
-            </div>
-          ))}
-      </ul>
+      <Stats title={"Starred Segments"} statBox={segmentDataArray || []} />
     </div>
   );
 };
